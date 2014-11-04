@@ -65,7 +65,15 @@
 
     /* Feminino */
 
-    new Orgao();
+    new Orgao( "trompas-de-falopio" , "Trompas de Falópio" , "INFO" );
+
+    new Orgao( "utero" , "Útero" , "INFO" );
+
+    new Orgao( "vagina" , "Vagina" , "INFO" );
+
+    new Orgao( "vulva" , "Vulva" , "INFO" );
+
+    new Orgao( "ovarios" , "Ovários" , "INFO" );
 
   };
 
