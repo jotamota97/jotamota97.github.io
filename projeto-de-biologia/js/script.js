@@ -108,6 +108,7 @@
 
         if ( thisOrgao ) {
 
+          // "addClass" não funciona com SVG
           thisOrgao.$el.attr( "class" , "see" );
 
         }
@@ -118,6 +119,7 @@
 
         if ( thisOrgao ) {
 
+          // "removeClass" não funciona com SVG
           thisOrgao.$el.attr( "class" , null );
 
         }
