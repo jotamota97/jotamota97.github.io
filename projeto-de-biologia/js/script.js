@@ -149,15 +149,7 @@
 
         }
 
-      } )/*.each( function(){
-
-        var title = orgaos[ this.id ].title;
-
-        $( this ).tooltip( {
-          content : title
-        } );
-
-      } )*/;
+      } );
 
       $( ".button" ).button();
 
