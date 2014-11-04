@@ -140,10 +140,14 @@
 
         var thisOrgao = orgaos[ this.id ];
 
-        $infoTitle.html( thisOrgao.title );
-        $infoDesc.html( thisOrgao.description );
+        if ( thisOrgao ) {
 
-        $container.addClass( "seeInfo" );
+          $infoTitle.html( thisOrgao.title );
+          $infoDesc.html( thisOrgao.description );
+
+          $container.addClass( "seeInfo" );
+
+        }
 
       } )/*.each( function(){
 
@@ -169,15 +173,15 @@
 
           sistema = "feminino";
 
-          $masculino.hide();
-          $feminino.show();
+          $masculino.css( "display" , "none" );
+          $feminino.css( "display" , "block" );
 
         } else {
 
           sistema = "masculino";
 
-          $feminino.hide();
-          $masculino.show();
+          $feminino.css( "display" , "none" );
+          $masculino.css( "display" , "block" );
 
         }
 
