@@ -65,15 +65,25 @@
 
     /* Feminino */
 
-    new Orgao( "trompas-de-falopio" , "Trompas de Falópio" , "INFO" );
+    new Orgao( "trompas-de-falopio" , "Trompas de Falópio" ,
+      "As trompas de Falópio são os locais por onde é feita a condução dos óvulos ao útero que têm uma zona franjada no início a que se dá o nome de pavilhão da trompa. É possível ocorrer fecundação nas trompas de Falópio, o que é muito prejudicial, levando muitas vezes à morte."
+    );
 
-    new Orgao( "utero" , "Útero" , "INFO" );
+    new Orgao( "utero" , "Útero" ,
+      "O útero é um órgão de parede muscular onde ocorre a fixação e desenvolvimento do ser após a implantação do embrião no endométrio, até ao nascimento."
+    );
 
-    new Orgao( "vagina" , "Vagina" , "INFO" );
+    new Orgao( "vagina" , "Vagina" ,
+      "Canal de comunicação com o exterior e de receção do esperma aquando de uma relação sexual."
+    );
 
-    new Orgao( "vulva" , "Vulva" , "INFO" );
+    new Orgao( "vulva" , "Vulva" ,
+      "A vulva é a parte externa do órgão genital feminino. Externamente pode ser revestida por pêlos púbicos."
+    );
 
-    new Orgao( "ovarios" , "Ovários" , "INFO" );
+    new Orgao( "ovarios" , "Ovários" ,
+      "Os ovários são os responsáveis pela produção de oócitos e de hormonas sexuais. São nos ovários que ocorre a oogénese."
+    );
 
   };
 
