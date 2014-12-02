@@ -195,6 +195,15 @@
 
       $( "#header .change" ).click( toggleSistema );
 
+      // Prevenir seleção em certos elementos
+      $( "*" ).on( "selectstart" , function ( e ) {
+        if ( !$( e.target ).hasClass( "selection" ) ) {
+          e.preventDefault();
+        }
+      } );
+
+      $( "div:not(.selection)" ).addClass( "noselection" );
+
     });
 
   }

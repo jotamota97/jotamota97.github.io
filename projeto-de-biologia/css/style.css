@@ -151,7 +151,7 @@ svg polygon.see {
 
 /* .button */
 
-.button {
+div.button {
   cursor: pointer;
 }
 
@@ -167,4 +167,14 @@ svg polygon.see {
 
 #info .close {
   margin-top: 50px;
+}
+
+/* Selection */
+
+.noselection {
+  cursor: context-menu;
+}
+
+.selection {
+  cursor: text;
 }
