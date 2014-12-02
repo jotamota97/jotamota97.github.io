@@ -13,7 +13,7 @@
 
   var orgaos = {};
 
-  var Orgao = function ( id , title , description ) {
+  var Orgao = function ( gender , id , title , description ) {
 
     if ( !id || !title || !description ) {
       return this;
@@ -22,6 +22,7 @@
     this.title = title;
     this.description = description;
     this.$el = $( "polygon[title=" + id + "]" );
+    this.gender = gender;
 
     orgaos[ id ] = this;
 
@@ -31,57 +32,57 @@
 
     /* Masculino */
 
-    new Orgao( "testiculos" , "Testículos" ,
+    new Orgao( "male" , "testiculos" , "Testículos" ,
       "Os testículos são os responsáveis pela produção de testosterona (hormona sexual). São nos testículos que ocorre a gametogénese, que no caso dos testículos tem o nome de espermatogénese. Exteriormente os testículos são cobertos pelo escroto. A sua temperatura é um pouco abaixo da temperatura normal do corpo, o que é essencial para a produção de espermatozóides viáveis; uma variação, mesmo que pequena, pode ser prejudicial."
     );
 
-    new Orgao( "prostata" , "Próstata" ,
+    new Orgao( "male" , "prostata" , "Próstata" ,
       "A próstata é uma glândula exócrina que faz parte do sistema reprodutor masculino. A  sua função é produzir e armazenar um fluido incolor e ligeiramente alcalino (pH 7.29) que constitui 10-30% do volume do fluido seminal, que juntamente com os espermatozóides constitui o sémen."
     );
 
-    new Orgao( "glande" , "Glande" ,
+    new Orgao( "male" , "glande" , "Glande" ,
       "A glande é a parte sensível do órgão sexual masculino, situada na extremidade do pénis, que termina com a abertura da uretra. É uma expansão do corpo esponjoso presente no interior do pénis, ligada ao restante do órgão pelo frénulo e pela coroa. É recoberto pelo prepúcio em indivíduos não circuncidados."
     );
 
-    new Orgao( "vesicula-seminar" , "Vesículas Seminais" ,
+    new Orgao( "male" , "vesicula-seminar" , "Vesículas Seminais" ,
       "As vesículas seminais são glândulas que juntamente com a próstata produzem as secreções que envolvem os espermatozóides, constituindo o esperma ou sémen."
     );
 
-    new Orgao( "canal-deferente" , "Canais deferentes" ,
+    new Orgao( "male" , "canal-deferente" , "Canais deferentes" ,
       "Os canais deferentes são os locais onde os espermatozóides são armazenados e posteriormente transportados até à uretra."
     );
 
-    new Orgao( "corpo-esponjoso" , "Corpo Esponjoso" ,
+    new Orgao( "male" , "corpo-esponjoso" , "Corpo Esponjoso" ,
       "O corpo esponjoso é um tecido, situado na parte inferior do pénis, que envolve e protege a uretra."
     );
 
-    new Orgao( "epididimo" , "Epidídimo" ,
+    new Orgao( "male" , "epididimo" , "Epidídimo" ,
       "Os epidídimos são os locais onde os espermatozóides são armazenados e onde sofrem a sua maturação."
     );
 
-    new Orgao( "corpo-cavernoso" , "Corpo Cavernoso" ,
+    new Orgao( "male" , "corpo-cavernoso" , "Corpo Cavernoso" ,
       "Os dois corpos cavernosos situam-se um ao lado do outro na parte superior do pénis. São um par de estruturas de tecido erétil parecidas com esponjas, que contêm a maior parte do sangue do pénis durante a ereção."
     );
 
     /* Feminino */
 
-    new Orgao( "trompas-de-falopio" , "Trompas de Falópio" ,
+    new Orgao( "female" , "trompas-de-falopio" , "Trompas de Falópio" ,
       "As trompas de Falópio são os locais por onde é feita a condução dos óvulos ao útero que têm uma zona franjada no início a que se dá o nome de pavilhão da trompa. É possível ocorrer fecundação nas trompas de Falópio, o que é muito prejudicial, levando muitas vezes à morte."
     );
 
-    new Orgao( "utero" , "Útero" ,
+    new Orgao( "female" , "utero" , "Útero" ,
       "O útero é um órgão de parede muscular onde ocorre a fixação e desenvolvimento do ser após a implantação do embrião no endométrio, até ao nascimento."
     );
 
-    new Orgao( "vagina" , "Vagina" ,
+    new Orgao( "female" , "vagina" , "Vagina" ,
       "Canal de comunicação com o exterior e de receção do esperma aquando de uma relação sexual."
     );
 
-    new Orgao( "vulva" , "Vulva" ,
+    new Orgao( "female" , "vulva" , "Vulva" ,
       "A vulva é a parte externa do órgão genital feminino. Externamente pode ser revestida por pêlos púbicos."
     );
 
-    new Orgao( "ovarios" , "Ovários" ,
+    new Orgao( "female" , "ovarios" , "Ovários" ,
       "Os ovários são os responsáveis pela produção de oócitos e de hormonas sexuais. São nos ovários que ocorre a oogénese."
     );
 
@@ -101,9 +102,9 @@
 
       sistema = "feminino", // a seguir ele faz 'toggleSistema'
 
-      $masculino = $( "#masculino" ),
+      $masculino = $( ".masculino" ),
 
-      $feminino = $( "#feminino" ),
+      $feminino = $( ".feminino" ),
 
       $headerTitle = $( "#header .title" ),
 
@@ -115,36 +116,11 @@
 
       $infoDesc = $info.find( ".description" ),
 
-      $svg = $( "svg" );
+      $svg = $( "svg" ),
 
-      // Build
-      build();
+      mudarDescricao = function ( id ) {
 
-      $svg.find( "polygon" ).mouseenter( function ( e ) {
-
-        var thisOrgao = orgaos[ this.getAttribute( "title" ) ];
-
-        if ( thisOrgao ) {
-
-          // "addClass" não funciona com SVG
-          thisOrgao.$el.attr( "class" , "see" );
-
-        }
-
-      } ).mouseleave( function ( e ) {
-
-        var thisOrgao = orgaos[ this.getAttribute( "title" ) ];
-
-        if ( thisOrgao ) {
-
-          // "removeClass" não funciona com SVG
-          thisOrgao.$el.attr( "class" , null );
-
-        }
-
-      } ).click( function ( e ) {
-
-        var thisOrgao = orgaos[ this.getAttribute( "title" ) ];
+        var thisOrgao = orgaos[ id ];
 
         if ( thisOrgao ) {
 
@@ -155,6 +131,31 @@
 
         }
 
+      };
+
+      // Build
+      build();
+
+      $svg.find( "polygon" ).mouseenter( function ( e ) {
+
+        var thisOrgao = orgaos[ this.getAttribute( "title" ) ];
+
+        if ( thisOrgao ) {
+          // "addClass" não funciona com SVG
+          thisOrgao.$el.attr( "class" , "see" );
+        }
+
+      } ).mouseleave( function ( e ) {
+
+        var thisOrgao = orgaos[ this.getAttribute( "title" ) ];
+
+        if ( thisOrgao ) {
+          // "removeClass" não funciona com SVG
+          thisOrgao.$el.attr( "class" , null );
+        }
+
+      } ).click( function(){
+        mudarDescricao( this.getAttribute( "title" ) );
       } );
 
       $( ".button" ).button();
@@ -191,6 +192,8 @@
 
       };
 
+      // toggleSistema
+
       toggleSistema();
 
       $( "#header .change" ).click( toggleSistema );
@@ -203,6 +206,26 @@
       } );
 
       $( "div:not(.selection)" ).addClass( "noselection" );
+
+      // Menu
+
+      var
+      $menuMasculino = $( ".menu.masculino ul" ),
+      $menuFeminino = $( ".menu.feminino ul" );
+
+      $.each( orgaos , function ( id , object ) {
+
+        var item = $( "<li><a><span></span>" +  object.title + "</a></li>" ).on( "click" , function(){
+          mudarDescricao( id );
+        } );
+
+        if ( object.gender === "male" ) {
+          $menuMasculino.append( item );
+        } else {
+          $menuFeminino.append( item );
+        }
+
+      } );
 
     });
 
