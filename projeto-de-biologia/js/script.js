@@ -216,7 +216,15 @@
       $.each( orgaos , function ( id , object ) {
 
         var item = $( "<li><a><span></span>" +  object.title + "</a></li>" ).on( "click" , function(){
+
           mudarDescricao( id );
+
+          orgaos[ id ].$el.attr( "class" , "see" );
+
+          setTimeout( function(){
+            orgaos[ id ].$el.attr( "class" , "" );
+          } , 2000 );
+
         } );
 
         if ( object.gender === "male" ) {
