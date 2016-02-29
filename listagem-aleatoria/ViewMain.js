@@ -50,12 +50,30 @@ var ViewMain = mota.view.createClass( {
     this.updateResult( this.data = sort( this.data ) );
   },
 
+  selectText: function() {
+    var text = document.getElementById( "result" ), range, selection;
+    if ( document.body.createTextRange ) {
+      range = document.body.createTextRange();
+      range.moveToElementText( text );
+      range.select();
+    } else if ( window.getSelection ) {
+      selection = window.getSelection();
+      range = document.createRange();
+      range.selectNodeContents( text );
+      selection.removeAllRanges();
+      selection.addRange( range );
+    }
+  },
+
   render: function( p ) {
     return p( "div", null, [
       p( ViewInputFile, { callback: this.fileSelect } ),
-      this.data.length ? p( "button", { onclick: this.sort }, "Sort again" ) : null,
+      this.result.length ? p( "button", { onclick: this.sort }, "Sort again" ) : null,
       p( "div", null, this._loading ? "Loading..." : "\n" ),
-      this.result.length ? p( "pre", { style: { width: 500, height: 300 } }, this.result.join( "\n" ) ) : null
+      this.result.length ? p( "button", { onclick: this.selectText }, "Select all text" ) : null,
+      this.result.length ? p( "pre", {
+        id: "result", style: { width: 500, height: 300 }
+      }, this.result.join( "\n" ) ) : null
     ] );
   }
 
