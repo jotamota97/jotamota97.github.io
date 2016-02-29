@@ -55,7 +55,7 @@ var ViewMain = mota.view.createClass( {
       p( ViewInputFile, { callback: this.fileSelect } ),
       this.data.length ? p( "button", { onclick: this.sort }, "Sort again" ) : null,
       p( "div", null, this._loading ? "Loading..." : "\n" ),
-      this.result.length ? p( "textarea", { style: { width: 500, height: 300 } }, this.result.join( "\n" ) ) : null
+      this.result.length ? p( "pre", { style: { width: 500, height: 300 } }, this.result.join( "\n" ) ) : null
     ] );
   }
 
