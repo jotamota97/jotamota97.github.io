@@ -66,14 +66,16 @@ var ViewMain = mota.view.createClass( {
   },
 
   render: function( p ) {
+    var show = !!this.result.length;
     return p( "div", null, [
       p( ViewInputFile, { callback: this.fileSelect } ),
-      this.result.length ? p( "button", { onclick: this.sort }, "Sort again" ) : null,
-      p( "div", null, this._loading ? "Loading..." : "\n" ),
-      this.result.length ? p( "button", { onclick: this.selectText }, "Select all text" ) : null,
-      this.result.length ? p( "pre", {
+      show && p( "button", { onclick: this.sort }, "Ordenar aleatóriamente" ),
+      show && p( "i", null, "Vai usar o resultado obtido e não o conteúdo do ficheiro." ),
+      p( "div", null, this._loading ? "A carregar..." : "\n" ),
+      show && p( "button", { onclick: this.selectText }, "Selecionar texto" ),
+      show && p( "pre", {
         id: "result", style: { width: 500, height: 300 }
-      }, this.result.join( "\n" ) ) : null
+      }, this.result.join( "\n" ) )
     ] );
   }
 
