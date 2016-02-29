@@ -47,7 +47,7 @@ var ViewMain = mota.view.createClass( {
   },
 
   sort: function() {
-    this.updateResult( sort( this.data.slice() ) );
+    this.updateResult( this.data = sort( this.data ) );
   },
 
   render: function( p ) {
