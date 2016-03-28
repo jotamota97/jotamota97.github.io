@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Form results</title>
+    <script src="mota.js"></script>
+    <script src="papaparse.min.js"></script>
+    <script src="Results.js"></script>
+    <script src="ViewInputFile.js"></script>
+    <script src="ViewMain.js"></script>
+  </head>
+  <body>
+    <script>
+
+      FILTER = function( a ) {
+        return a[ 0 ][ 0 ] && a[ 1 ][ 0 ];
+      };
+
+      var component = mota.view.render( mota.view.create( ViewMain ), document.body );
+    </script>
+  </body>
+</html>
