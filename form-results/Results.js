@@ -36,14 +36,18 @@ function normalizeOptions( arr ) {
 }
 
 function Results() {
-  this.data = [];
-  this.options = [];
-  this.headers = [];
+  this.data = null;
+  this.options = null;
+  this.headers = null;
 }
 
 Results.prototype = {
 
   constructor: Results,
+
+  isReady: function() {
+    return !!( this.data && this.options );
+  },
 
   addData: function( file ) {
     this.data = file.data;

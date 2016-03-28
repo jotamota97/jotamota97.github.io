@@ -20,7 +20,11 @@ window.ViewSelect = mota.view.createClass( {
   },
 
   render: function( p, props ) {
-    return p( "select", { selectedIndex: this.index, onchange: this.onChange }, props.children );
+    return p( "select", {
+      selectedIndex: this.index,
+      onchange: this.onChange,
+      style: { width: "100%" }
+    }, props.children );
   }
 
 } );

@@ -8,8 +8,18 @@ window.ViewMain = mota.view.createClass( {
     this.bindMethodsToThis();
   },
 
+  styleInfoBox: {
+    position: "fixed",
+    bottom: 30,
+    right: 30,
+    width: 500,
+    height: 90,
+    background: "#eee",
+    border: "2px solid #ddd"
+  },
+
   setInfo: function( info ) {
-    this.info = info;
+    this.info = info + " (" + new Date().toGMTString() + ")";
     this.update();
   },
 
@@ -42,11 +52,19 @@ window.ViewMain = mota.view.createClass( {
 
   filter: function() {
 
+    var filterFn = this.exp.toFunction();
+
+    if ( !filterFn ) {
+      this.setInfo( "Expressão inválida." );
+      return;
+    }
+
     var self = this;
 
-    setTimeout( function() {
+    this.filtrando = true;
+    this.setInfo( "Filtrando..." );
 
-      var filterFn = self.exp.toFunction();
+    setTimeout( function() {
 
       self.results.processAnswers();
       var f = self.filtered = self.results.filter( filterFn );
@@ -56,13 +74,16 @@ window.ViewMain = mota.view.createClass( {
 
     } );
 
-    this.filtrando = true;
-    this.setInfo( "Filtrando..." );
-
   },
 
   expression: function( exp ) {
     this.exp = exp;
+  },
+
+  closeInfoBox: function( e ) {
+    e.preventDefault();
+    this.info = "";
+    this.update();
   },
 
   render: function( p ) {
@@ -105,14 +126,17 @@ window.ViewMain = mota.view.createClass( {
       p( ViewInputFile, { callback: this.fileSelect.bind( this, 0 ) } ),
       p( "div", null, "Ficheiro com as opções:" ),
       p( ViewInputFile, { callback: this.fileSelect.bind( this, 1 ) } ),
-      p( "div", null, this.info ),
       p( ViewBooleanExpression, { results: this.results, expression: this.expression } ),
-      p( "button", { onclick: this.filter, disabled: this.filtrando }, "Filtrar" ),
+      this.results.isReady() && p( "button", { onclick: this.filter, disabled: this.filtrando }, "Filtrar" ),
       p( "table", null,
         p( "tbody", {
           dangerousInnerHTML: { __html: html }
         } )
-      )
+      ),
+      this.info && p( "div", { style: this.styleInfoBox }, [
+        p( "p", null, this.info ),
+        p( "a", { onclick: this.closeInfoBox, style: { fontWeight: "bold" } }, "Close" )
+      ] )
     ] );
   }
 

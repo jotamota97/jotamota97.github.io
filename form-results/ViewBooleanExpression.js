@@ -14,7 +14,10 @@ window.ViewBooleanExpression = mota.view.createClass( {
 
     var options = props.results.options;
 
-    if ( this.questionIdx === -1 || this.questionIdx >= options.length || this.optionIdx >= options[ this.questionIdx ].length ) {
+    if ( this.questionIdx === -1 ) {
+      this.questionIdx = -1;
+      this.optionIdx = -1;
+    } else if ( this.questionIdx >= options.length || this.optionIdx >= options[ this.questionIdx ].length ) {
       this.questionIdx = -1;
       this.optionIdx = -1;
       this.expression.reset();
@@ -42,6 +45,16 @@ window.ViewBooleanExpression = mota.view.createClass( {
     this.update();
   },
 
+  open: function() {
+    this.expression.open();
+    this.update();
+  },
+
+  close: function() {
+    this.expression.close();
+    this.update();
+  },
+
   addAnd: function() {
     this.expression.addAnd();
     this.update();
@@ -49,6 +62,16 @@ window.ViewBooleanExpression = mota.view.createClass( {
 
   addOr: function() {
     this.expression.addOr();
+    this.update();
+  },
+
+  showAll: function() {
+    this.expression.all();
+    this.update();
+  },
+
+  backspace: function() {
+    this.expression.backspace();
     this.update();
   },
 
@@ -67,7 +90,7 @@ window.ViewBooleanExpression = mota.view.createClass( {
     var options = r.options;
     var headers = r.headers;
 
-    if ( !headers.length ) {
+    if ( !r.isReady() ) {
       return p( "div" );
     }
 
@@ -80,6 +103,10 @@ window.ViewBooleanExpression = mota.view.createClass( {
       p( "button", { onclick: this.submit }, "Add it" ),
       p( "button", { onclick: this.addAnd }, "Add AND" ),
       p( "button", { onclick: this.addOr }, "Add OR" ),
+      p( "button", { onclick: this.open }, "Add (" ),
+      p( "button", { onclick: this.close }, "Add )" ),
+      p( "button", { onclick: this.showAll }, "Show all" ),
+      p( "button", { onclick: this.backspace }, "BackSpace" ),
       p( "button", { onclick: this.reset }, "Reset" ),
       p( "div", null, "Expression: " + this.expression.toString() )
     ] );

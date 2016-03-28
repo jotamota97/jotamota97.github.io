@@ -13,12 +13,15 @@
     <script src="ViewMain.js"></script>
   </head>
   <body>
+    <style>
+      a {
+        cursor: pointer;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
     <script>
-
-      FILTER = function( a ) {
-        return a[ 0 ][ 0 ] && a[ 1 ][ 0 ];
-      };
-
       var component = mota.view.render( mota.view.create( ViewMain ), document.body );
     </script>
   </body>
