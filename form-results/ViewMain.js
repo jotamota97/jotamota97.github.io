@@ -1,10 +1,9 @@
-var ViewMain = mota.view.createClass( {
+window.ViewMain = mota.view.createClass( {
 
   initialize: function() {
     this.info = "";
-    this.files = [];
     this.filtered = null;
-    this.results = null;
+    this.results = new Results();
     this.filtrando = false;
     this.bindMethodsToThis();
   },
@@ -19,7 +18,11 @@ var ViewMain = mota.view.createClass( {
       console.log( results.errors );
       // return;
     }
-    this.files[ num ] = results;
+    if ( num === 0 ) {
+      this.results.addData( results );
+    } else {
+      this.results.addOptions( results );
+    }
     this.setInfo( "Ficheiro carregado e lido." );
   },
 
@@ -39,19 +42,14 @@ var ViewMain = mota.view.createClass( {
 
   filter: function() {
 
-    var file0 = this.files[ 0 ];
-    var file1 = this.files[ 1 ];
-
-    if ( !file0 || !file1 ) {
-      return this.setInfo( "Faltam ficheiros. Não posso filtrar." );
-    }
-
     var self = this;
 
     setTimeout( function() {
 
-      self.results = new Results( file0, file1 );
-      var f = self.filtered = self.results.filter( FILTER );
+      var filterFn = self.exp.toFunction();
+
+      self.results.processAnswers();
+      var f = self.filtered = self.results.filter( filterFn );
 
       self.filtrando = false;
       self.setInfo( "Filtragem feita. Mostrando " + f.many + " de " + f.total + " (" + f.percentage + "%)." );
@@ -61,6 +59,10 @@ var ViewMain = mota.view.createClass( {
     this.filtrando = true;
     this.setInfo( "Filtrando..." );
 
+  },
+
+  expression: function( exp ) {
+    this.exp = exp;
   },
 
   render: function( p ) {
@@ -103,8 +105,9 @@ var ViewMain = mota.view.createClass( {
       p( ViewInputFile, { callback: this.fileSelect.bind( this, 0 ) } ),
       p( "div", null, "Ficheiro com as opções:" ),
       p( ViewInputFile, { callback: this.fileSelect.bind( this, 1 ) } ),
-      p( "button", { onclick: this.filter, disabled: this.filtrando }, "Filtrar" ),
       p( "div", null, this.info ),
+      p( ViewBooleanExpression, { results: this.results, expression: this.expression } ),
+      p( "button", { onclick: this.filter, disabled: this.filtrando }, "Filtrar" ),
       p( "table", null,
         p( "tbody", {
           dangerousInnerHTML: { __html: html }

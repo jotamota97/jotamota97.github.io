@@ -1,4 +1,4 @@
-var ViewInputFile = mota.view.createClass( {
+window.ViewInputFile = mota.view.createClass( {
 
   initialize: function() {
     this.bindMethodsToThis();

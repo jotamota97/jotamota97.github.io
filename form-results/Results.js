@@ -35,30 +35,45 @@ function normalizeOptions( arr ) {
 
 }
 
-function Results( file0, file1 ) {
-
-  var data = file0.data;
-  var options = normalizeOptions( file1.data );
-  var answers = new Array( data.length - 1 );
-
-  for ( var i = 1; i < data.length; i++ ) {
-
-    answers[ i - 1 ] = new Array( options.length );
-
-    for ( var j = 0; j < options.length; j++ ) {
-      answers[ i - 1 ][ j ] = extractOptions( data[ i ][ j ], options[ j ] );
-    }
-
-  }
-
-  this.options = options;
-  this.headers = file1.data[ 0 ];
-  this.answers = answers;
-
+function Results() {
+  this.data = [];
+  this.options = [];
+  this.headers = [];
 }
 
 Results.prototype = {
+
   constructor: Results,
+
+  addData: function( file ) {
+    this.data = file.data;
+  },
+
+  addOptions: function( file ) {
+    this.options = normalizeOptions( file.data );
+    this.headers = file.data[ 0 ];
+  },
+
+  processAnswers: function() {
+
+    var data = this.data;
+    var options = this.options;
+    var answers = new Array( data.length - 1 );
+
+    for ( var i = 1; i < data.length; i++ ) {
+
+      answers[ i - 1 ] = new Array( options.length );
+
+      for ( var j = 0; j < options.length; j++ ) {
+        answers[ i - 1 ][ j ] = extractOptions( data[ i ][ j ], options[ j ] );
+      }
+
+    }
+
+    this.answers = answers;
+
+  },
+
   filter: function( fn ) {
 
     var headers = this.headers;
@@ -98,4 +113,5 @@ Results.prototype = {
       counts: counts
     };
   }
+
 };
