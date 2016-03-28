@@ -16,14 +16,10 @@ window.ViewInputFile = mota.view.createClass( {
   },
 
   handleFileSelect: function( e ) {
-    e.stopPropagation();
-    e.preventDefault();
     this.props.callback( ( e.dataTransfer || e.target ).files[ 0 ] );
   },
 
   handleDragOver: function( e ) {
-    e.stopPropagation();
-    e.preventDefault();
     e.dataTransfer.dropEffect = "copy";
   },
 
@@ -37,14 +33,11 @@ window.ViewInputFile = mota.view.createClass( {
       return p( "div", null, "The File APIs are not fully supported in this browser." );
     }
 
-    var ondragover = this.handleDragOver;
-    var onclick = this.handleClick;
-    var fileSelect = this.handleFileSelect;
     var style = this.styles.dropFile;
 
-    return p( "div", { ondragover: ondragover, ondrop: fileSelect, style: style },
+    return p( "div", { ondragover: this.handleDragOver, ondrop: this.handleFileSelect, style: style },
       "Drop here or select: ",
-      p( "input", { type: "file", onclick: onclick, onchange: fileSelect } )
+      p( "input", { type: "file", onclick: this.handleClick, onchange: this.handleFileSelect } )
     );
 
   }

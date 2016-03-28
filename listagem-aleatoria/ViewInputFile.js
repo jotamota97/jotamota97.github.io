@@ -16,14 +16,10 @@ var ViewInputFile = mota.view.createClass( {
   },
 
   handleFileSelect: function( e ) {
-    e.stopPropagation();
-    e.preventDefault();
     this.props.callback( ( e.dataTransfer || e.target ).files[ 0 ] );
   },
 
   handleDragOver: function( e ) {
-    e.stopPropagation();
-    e.preventDefault();
     e.dataTransfer.dropEffect = "copy";
   },
 
