@@ -111,7 +111,7 @@ window.ViewMain = mota.view.createClass( {
 
           var option = options[ j ];
 
-          html = "<tr><td>" + option.name + "</td><td>" + percentage( option.i, many ) + "</td></tr>" + html;
+          html = "<tr><td>" + option.name + "</td><td>" + option.i + " (" + percentage( option.i, many ) + "%)</td></tr>" + html;
 
         }
 
