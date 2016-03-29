@@ -34,6 +34,11 @@ Expression.prototype = {
 
   },
 
+  not: function() {
+    this.arr.push( "!" );
+    this.str.push( "NOT" );
+  },
+
   all: function() {
     this.arr.length = 0;
     this.arr.push( "true" );

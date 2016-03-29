@@ -65,6 +65,11 @@ window.ViewBooleanExpression = mota.view.createClass( {
     this.update();
   },
 
+  not: function() {
+    this.expression.not();
+    this.update();
+  },
+
   showAll: function() {
     this.expression.all();
     this.update();
@@ -101,10 +106,11 @@ window.ViewBooleanExpression = mota.view.createClass( {
       p( ViewSelect, { index: this.questionIdx, onchange: this.questionChange }, headers.map( this.renderEachOption ) ),
       opts && p( ViewSelect, { key: "q" + idx, index: this.optionIdx, onchange: this.optionChange }, opts.map( this.renderEachOption ) ),
       p( "button", { onclick: this.submit }, "Add it" ),
-      p( "button", { onclick: this.addAnd }, "Add AND" ),
-      p( "button", { onclick: this.addOr }, "Add OR" ),
-      p( "button", { onclick: this.open }, "Add (" ),
-      p( "button", { onclick: this.close }, "Add )" ),
+      p( "button", { onclick: this.addAnd }, "AND" ),
+      p( "button", { onclick: this.addOr }, "OR" ),
+      p( "button", { onclick: this.not }, "NOT" ),
+      p( "button", { onclick: this.open }, " ( " ),
+      p( "button", { onclick: this.close }, " ) " ),
       p( "button", { onclick: this.showAll }, "Show all" ),
       p( "button", { onclick: this.backspace }, "BackSpace" ),
       p( "button", { onclick: this.reset }, "Reset" ),
