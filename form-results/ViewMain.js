@@ -52,6 +52,7 @@ window.ViewMain = mota.view.createClass( {
 
   filter: function() {
 
+    var self = this;
     var filterFn = this.exp.toFunction();
 
     if ( !filterFn ) {
@@ -59,17 +60,28 @@ window.ViewMain = mota.view.createClass( {
       return;
     }
 
-    var self = this;
-
     this.filtrando = true;
     this.setInfo( "Filtrando..." );
 
     setTimeout( function() {
 
+      var f, failed = false;
+
       self.results.processAnswers();
-      var f = self.filtered = self.results.filter( filterFn );
+
+      try {
+        f = self.filtered = self.results.filter( filterFn );
+      } catch ( err ) {
+        failed = true;
+      }
 
       self.filtrando = false;
+
+      if ( failed ) {
+        self.setInfo( "Ocorreu um erro. É provável que a expressão esteja mal formatada." );
+        return;
+      }
+
       self.setInfo( "Filtragem feita. Mostrando " + f.many + " de " + f.total + " (" + f.percentage + "%)." );
 
     } );

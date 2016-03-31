@@ -65,6 +65,13 @@ Expression.prototype = {
     try {
       fn = new Function( "a", "return " + body  + ";" );
     } catch ( err ) {}
+    if ( fn ) { // Make sure no runtime error will occur
+      try {
+        fn( [] );
+      } catch ( err ) {
+        fn = undefined;
+      }
+    }
     return fn;
   }
 
