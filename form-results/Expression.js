@@ -29,7 +29,7 @@ Expression.prototype = {
 
     if ( idx1 > -1 && idx2 > -1 ) {
       this.arr.push( "(a[%1]&&a[%1][%2])".replace( /%1/g, idx1 ).replace( /%2/g, idx2 ) );
-      this.str.push( "a[%1][%2]".replace( /%1/g, idx1 ).replace( /%2/g, idx2 ) );
+      this.str.push( "a[%1][%2]".replace( /%1/g, idx1 + 1 ).replace( /%2/g, idx2 + 1 ) );
     }
 
   },
