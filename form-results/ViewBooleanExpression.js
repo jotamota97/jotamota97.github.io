@@ -86,7 +86,7 @@ window.ViewBooleanExpression = mota.view.createClass( {
   },
 
   renderEachOption: function( option ) {
-    return mota.view.create( "option", null, option );
+    return mota.view.create( "option", null, option + "" );
   },
 
   render: function( p, props ) {

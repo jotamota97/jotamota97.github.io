@@ -4,13 +4,19 @@ function createRegExp( option ) {
 }
 
 function extractOptions( text, options ) {
-  var results = [], option, prevText = text;
-  for ( var i = 0; i < options.length; i++ ) {
+  var results = [], option, prevText = text, didAnswer = false;
+  for ( var i = 0; i < options.length - 1; i++ ) { // Loop for each option except the "no answer" option
     option = options[ i ];
     text = prevText.replace( createRegExp( option ), "" );
-    results.push( text !== prevText );
+    if ( text !== prevText ) {
+      results.push( true );
+      didAnswer = true;
+    } else {
+      results.push( false );
+    }
     prevText = text;
   }
+  results.push( !didAnswer );
   return results;
 }
 
@@ -29,6 +35,11 @@ function normalizeOptions( arr ) {
         newArr[ j ].push( value );
       }
     }
+  }
+
+  // Add "no answer" option
+  for ( var k = 0; k < newArr.length; k++ ) {
+    newArr[ k ].push( null );
   }
 
   return newArr;
@@ -89,7 +100,7 @@ Results.prototype = {
     var many = arr.length;
 
     function eachOption( name ) {
-      return { name: name, i: 0 };
+      return { name: name + "", i: 0 };
     }
 
     var counts = headers.map( function( title, i ) {
